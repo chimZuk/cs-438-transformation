@@ -338,6 +338,34 @@ function main() {
 
             // *** code here ***
 
+
+            //------- EXAMPLE CODE
+            //Earth Rotation wrt itself
+
+            //mmat = mult(mmat, rotateX(30.0));
+            //move position
+            mmat = mult(mmat, rotateZ(year));
+
+
+            mmat = mult(mmat, translate(0.8, 0.1, 0.6));
+
+            mmat = mult(mmat, rotateX(-23.44));
+
+            mmat = mult(mmat, rotateY(day));
+
+            //Earth Size by scaling
+            mmat = mult(mmat, scalem(0.10, 0.10, 0.10));
+
+            // set Earth model matrix            
+            gl.uniformMatrix4fv(modelMatLocation, false, flatten(mmat));
+
+            // set Earth color and alpha
+            gl.uniform3fv(colorLocation, hsvToRgb(0.11, 1, 1));
+            gl.uniform1f(alphaLocation, 0.75);
+
+
+            //------- EXAMPLE CODE
+
             // draw the geometry                        
             gl.drawElements(gl.TRIANGLES, geometry.indices.length, gl.UNSIGNED_SHORT, 0);
         }
@@ -361,6 +389,28 @@ function main() {
 
             // *** code here ***
 
+
+            //------- EXAMPLE CODE
+            //Moon Rotation wrt itself
+            mmat = mult(mmat, rotateX(month));
+
+            mmat = mult(mmat, translate(0.7, 0.0, 0.7));
+
+            mmat = mult(mmat, rotateX(-5.14));
+
+            mmat = mult(mmat, rotateY(day));
+
+            mmat = mult(mmat, scalem(0.03, 0.03, 0.03));
+
+            // set Moon model matrix            
+            gl.uniformMatrix4fv(modelMatLocation, false, flatten(mmat));
+
+            // set Moon color and alpha
+            gl.uniform3fv(colorLocation, hsvToRgb(0.11, 1, 1));
+            gl.uniform1f(alphaLocation, 0.75);
+
+
+            //------- EXAMPLE CODE
             // draw the geometry                                   
             gl.drawElements(gl.TRIANGLES, geometry.indices.length, gl.UNSIGNED_SHORT, 0);
 
