@@ -25,7 +25,7 @@ void main()
     // check the function sphereGeometry(...) below. 
     
     // *** code here ***
-    v_color = vec4(a_color, 1.0);   
+    v_color = vec4(a_color + u_color - 0.3, 1.0);   
 
     gl_Position = u_model * vec4(a_position, 1.0);    
 }`;
@@ -338,33 +338,28 @@ function main() {
 
             // *** code here ***
 
+            // set up annual rotation around sun
+            mmat = mult(mmat, rotateY(year));
+            
+            // set up earth orbit
+            mmat = mult(mmat, translate(0.4, 0.05, 0.4));
 
-            //------- EXAMPLE CODE
-            //Earth Rotation wrt itself
+            // set up earth scale
+            mmat = mult(mmat, scalem(0.1, 0.1, 0.1));
 
-            //mmat = mult(mmat, rotateX(30.0));
-            //move position
-            mmat = mult(mmat, rotateZ(year));
-
-
-            mmat = mult(mmat, translate(0.8, 0.1, 0.6));
-
+            // set up earth natural axis
             mmat = mult(mmat, rotateX(-23.44));
 
-            mmat = mult(mmat, rotateY(day));
 
-            //Earth Size by scaling
-            mmat = mult(mmat, scalem(0.10, 0.10, 0.10));
+            // set up earth rotation around it's own center
+            //mmat = mult(mmat, rotateY(day));
 
-            // set Earth model matrix            
+            // set earth model matrix            
             gl.uniformMatrix4fv(modelMatLocation, false, flatten(mmat));
 
-            // set Earth color and alpha
-            gl.uniform3fv(colorLocation, hsvToRgb(0.11, 1, 1));
+            // set earth color and alpha
+            gl.uniform3fv(colorLocation, hsvToRgb(67 / 255, 123 / 255, 142 / 255));
             gl.uniform1f(alphaLocation, 0.75);
-
-
-            //------- EXAMPLE CODE
 
             // draw the geometry                        
             gl.drawElements(gl.TRIANGLES, geometry.indices.length, gl.UNSIGNED_SHORT, 0);
@@ -389,28 +384,25 @@ function main() {
 
             // *** code here ***
 
+            /*// set up annual rotation around earth
+            mmat = mult(mmat, rotateY(month));
 
-            //------- EXAMPLE CODE
-            //Moon Rotation wrt itself
-            mmat = mult(mmat, rotateX(month));
-
+            // set up moon orbit
             mmat = mult(mmat, translate(0.7, 0.0, 0.7));
 
+            // set up moon scale
+            mmat = mult(mmat, scalem(0.03, 0.03 , 0.03));
+
+            // set up moon natural axis
             mmat = mult(mmat, rotateX(-5.14));
 
-            mmat = mult(mmat, rotateY(day));
-
-            mmat = mult(mmat, scalem(0.03, 0.03, 0.03));
-
-            // set Moon model matrix            
+            // set moon model matrix            
             gl.uniformMatrix4fv(modelMatLocation, false, flatten(mmat));
 
-            // set Moon color and alpha
+            // set moon color and alpha
             gl.uniform3fv(colorLocation, hsvToRgb(0.11, 1, 1));
-            gl.uniform1f(alphaLocation, 0.75);
+            gl.uniform1f(alphaLocation, 0.75);*/
 
-
-            //------- EXAMPLE CODE
             // draw the geometry                                   
             gl.drawElements(gl.TRIANGLES, geometry.indices.length, gl.UNSIGNED_SHORT, 0);
 
