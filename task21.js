@@ -24,9 +24,8 @@ void main()
     // Remark: if you are interested how the sphere is created and the noise is sampled, 
     // check the function sphereGeometry(...) below. 
     
-    // *** code here ***
-    v_color = vec4(a_color + u_color - 0.3, 1.0);   
-
+    // *** code here ***   
+    v_color = vec4(u_color + 0.5 * (a_color - 0.5), u_alpha);
     gl_Position = u_model * vec4(a_position, 1.0);    
 }`;
 
@@ -338,28 +337,27 @@ function main() {
 
             // *** code here ***
 
-            // set up annual rotation around sun
+            // Step 1: Rotating earth to face it's point on the sun's orbit
             mmat = mult(mmat, rotateY(year));
-            
-            // set up earth orbit
-            mmat = mult(mmat, translate(0.4, 0.05, 0.4));
 
-            // set up earth scale
-            mmat = mult(mmat, scalem(0.1, 0.1, 0.1));
-
-            // set up earth natural axis
+            // Step 2: Tilting earth to it's normal degree
             mmat = mult(mmat, rotateX(-23.44));
 
+            // Step 3: Moving earth to the orbit around sun
+            mmat = mult(mmat, translate(0.8, 0, 0));
 
-            // set up earth rotation around it's own center
-            //mmat = mult(mmat, rotateY(day));
+            // Step 4: Rotate earth around it's own axis
+            mmat = mult(mmat, rotateY(day));
+
+            // Step 5: Setting up earth size
+            mmat = mult(mmat, scalem(0.1, 0.1, 0.1));
 
             // set earth model matrix            
             gl.uniformMatrix4fv(modelMatLocation, false, flatten(mmat));
 
             // set earth color and alpha
-            gl.uniform3fv(colorLocation, hsvToRgb(67 / 255, 123 / 255, 142 / 255));
-            gl.uniform1f(alphaLocation, 0.75);
+            gl.uniform3fv(colorLocation, hsvToRgb(0.425, 1.0, 0.8));
+            gl.uniform1f(alphaLocation, 1);
 
             // draw the geometry                        
             gl.drawElements(gl.TRIANGLES, geometry.indices.length, gl.UNSIGNED_SHORT, 0);
@@ -384,28 +382,33 @@ function main() {
 
             // *** code here ***
 
-            /*// set up annual rotation around earth
+            // Step 1: Rotating moon to face it's point on the sun's orbit
+            mmat = mult(mmat, rotateY(year));
+
+            // Step 2: Moving moon to the sun's orbit
+            mmat = mult(mmat, translate(0.8, 0, 0));
+
+            // Step 3: Rotating moon to face it's point on the earth's orbit
             mmat = mult(mmat, rotateY(month));
 
-            // set up moon orbit
-            mmat = mult(mmat, translate(0.7, 0.0, 0.7));
+            // Step 4: Tilting moon to it's normal angle
+            mmat = mult(mmat, rotateX(-5.44));
 
-            // set up moon scale
-            mmat = mult(mmat, scalem(0.03, 0.03 , 0.03));
+            // Step 5: Moving moon to the earth's orbit
+            mmat = mult(mmat, translate(0.20, 0, 0));
 
-            // set up moon natural axis
-            mmat = mult(mmat, rotateX(-5.14));
+            // Step 6: Setting up moon's size
+            mmat = mult(mmat, scalem(0.04, 0.04, 0.04));
 
             // set moon model matrix            
             gl.uniformMatrix4fv(modelMatLocation, false, flatten(mmat));
 
             // set moon color and alpha
-            gl.uniform3fv(colorLocation, hsvToRgb(0.11, 1, 1));
-            gl.uniform1f(alphaLocation, 0.75);*/
+            gl.uniform3fv(colorLocation, hsvToRgb(0.108, 1.0, 0.041666666));
+            gl.uniform1f(alphaLocation, 0.7);
 
-            // draw the geometry                                   
+            // draw the geometry                        
             gl.drawElements(gl.TRIANGLES, geometry.indices.length, gl.UNSIGNED_SHORT, 0);
-
         }
 
         // request next frame from the browser and render (it is an infinite loop)

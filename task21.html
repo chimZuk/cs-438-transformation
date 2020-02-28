@@ -1,11 +1,12 @@
 ﻿<html>
+
 <head>
     <style>
     </style>
     <link rel="stylesheet" type="text/css" href="./resources/style.css">
     <meta charset="utf-8" />
     <title>
-        CS438002: Assignment 2 (Last Name, First Name, Student Number)
+        CS438002: Assignment 2 (Kuzmitch, Dzmitry, 31479051)
     </title>
 
     <script type="text/javascript" src="./resources/init.js"></script>
@@ -25,7 +26,7 @@
         <div class="textdiv">
             <h2>Assignment 2</h2>
             <p>
-                Author: Last Name, First Name, Student Number
+                Author: Kuzmitch, Dzmitry, 31479051
             </p>
             <p>
                 Date: 2/14/2020<br />
@@ -65,7 +66,8 @@
                 <ul>
                     <li> be scaled accordingly</li>
                     <li> rotate around the Earth</li>
-                    <li> be tilted by -5.14 degrees with respect to (wrt) its orbit axis around the Earth in the x-y-plane</li>
+                    <li> be tilted by -5.14 degrees with respect to (wrt) its orbit axis around the Earth in the
+                        x-y-plane</li>
                     <li> orbit around the Earth</li>
                     <li> orbit with the Earth around the Sun.</li>
                 </ul>
@@ -133,9 +135,26 @@
         <div class="textdiv">
             <h3>Documentation</h3>
             <p>
-                Please write a short report here.
-                It should list what you have implemented, as well as a brief discussion and your conclusions.
-                Also add as many comments in your code as possible---it will help us in judging your work.
+                <b>Task 1:</b> First, we rotate earth to face a corresponding position on the orbit at the current
+                period of time.
+                Then, we tilt earth to it's natural angle.
+                Then, we move earth to it's orbit. After that we rotate earth itself to match day rotation.
+                Finally, we scale earth to normal size as well as setting earth's color.
+            </p>
+            <p>
+                <b>Task 2:</b> First, we rotate mooon to face a corresponding position on the orbit at the current
+                period of time.
+                Then, we move moon to its corresponding position on the sun's orbit.
+                Then, we rotate moon to face it's corresponding position on earth's orbit.
+                Then, we tilt moon to it's natural angle.
+                Then, we move moon to it's orbit. We don't rotate moon since it always faces earth with it's same one
+                side
+                Finally, we scale moon to normal size as well as setting moon's color.
+            </p>
+            <p>
+                <b>Task 3:</b>
+                We add up noise and regular color which is resulted in a colored noise. We adjust it with adding 0.5 and
+                multiplyer to match originally selected color.
             </p>
         </div>
 
